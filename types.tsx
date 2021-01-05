@@ -1,10 +1,14 @@
 export type RootStackParamList = {
+  Home: undefined;
+  DestinationSearch: undefined;
+  Guests: undefined;
+  SearchResult: undefined;
   Root: undefined;
   NotFound: undefined;
 };
 
 export type BottomTabParamList = {
-  TabOne: undefined;
+  Home: undefined;
   TabTwo: undefined;
 };
 
@@ -15,3 +19,19 @@ export type TabOneParamList = {
 export type TabTwoParamList = {
   TabTwoScreen: undefined;
 };
+
+export type PostType = {
+  id: string;
+  image: string;
+  type: string;
+  title: string;
+  bed: number;
+  bedroom: number;
+  oldPrice: number;
+  newPrice: number;
+  totalPrice: number;
+  coordinate: {
+    latitude: number;
+    longitude: number;
+  },
+}
