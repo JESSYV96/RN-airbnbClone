@@ -1,11 +1,11 @@
-import { EvilIcons, Feather, FontAwesome, FontAwesome5, Fontisto, Ionicons } from '@expo/vector-icons';
+import * as React from 'react';
+import { EvilIcons, Feather, FontAwesome, FontAwesome5, Fontisto } from '@expo/vector-icons';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createStackNavigator } from '@react-navigation/stack';
-import * as React from 'react';
-
 import HomeScreen from '../screens/HomeScreen';
-import TabTwoScreen from '../screens/TabTwoScreen';
-import { BottomTabParamList, TabOneParamList, TabTwoParamList } from '../types';
+import { BottomTabParamList, TabOneParamList } from '../types';
+import TopTabNavigator from './TopTabNavigator';
+import PlaceScreen from '../screens/PlaceScreen';
 
 const BottomTab = createBottomTabNavigator<BottomTabParamList>();
 
@@ -15,7 +15,7 @@ export default function BottomTabNavigator() {
       tabBarOptions={{ activeTintColor: 'red' }}>
       <BottomTab.Screen
         name="Explore"
-        component={HomeScreen}
+        component={ExploreNavigator}
         options={{
           tabBarIcon: ({ color }) =>
             <Fontisto
@@ -27,7 +27,7 @@ export default function BottomTabNavigator() {
       />
       <BottomTab.Screen
         name="Favoris"
-        component={HomeScreen}
+        component={PlaceScreen}
         options={{
           tabBarIcon: ({ color }) =>
             <FontAwesome
@@ -79,29 +79,21 @@ export default function BottomTabNavigator() {
 
 // Each tab has its own navigation stack, you can read more about this pattern here:
 // https://reactnavigation.org/docs/tab-based-navigation#a-stack-navigator-for-each-tab
-const TabOneStack = createStackNavigator<TabOneParamList>();
+const ExploreStack = createStackNavigator<TabOneParamList>();
 
-function TabOneNavigator() {
+function ExploreNavigator() {
   return (
-    <TabOneStack.Navigator screenOptions={{ headerShown: false }}>
-      <TabOneStack.Screen
-        name="TabOneScreen"
+    <ExploreStack.Navigator screenOptions={{ }}>
+      <ExploreStack.Screen
+        name="Home"
         component={HomeScreen}
+        options={{headerShown: false}}
       />
-    </TabOneStack.Navigator>
-  );
-}
-
-const TabTwoStack = createStackNavigator<TabTwoParamList>();
-
-function TabTwoNavigator() {
-  return (
-    <TabTwoStack.Navigator>
-      <TabTwoStack.Screen
-        name="TabTwoScreen"
-        component={TabTwoScreen}
-        options={{ headerTitle: 'Tab Two Title' }}
+      <ExploreStack.Screen
+        name="SearchResults"
+        component={TopTabNavigator}
+        options={{title: 'Rechercher votre destination'}}
       />
-    </TabTwoStack.Navigator>
+    </ExploreStack.Navigator>
   );
 }

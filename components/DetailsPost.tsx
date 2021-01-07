@@ -1,19 +1,14 @@
-import { useNavigation } from '@react-navigation/native'
 import React from 'react'
-import { StyleSheet, View, Image, Text, Pressable } from 'react-native'
+import { StyleSheet, View, Image, Text } from 'react-native'
 import { PostType } from '../types'
 
 export type PostProps = {
     post: PostType
 }
 
-const Post = ({ post }: PostProps) => {
-    const navigation = useNavigation();
-    const goToPostDetailsPage = () => {
-        navigation.navigate('PlaceDetails', {post})
-    }
+const PostDetails = ({ post }: PostProps) => {
     return (
-        <Pressable onPress={goToPostDetailsPage} style={styles.container}>
+        <View style={styles.container}>
             <Image
                 source={{ uri: post.image }}
                 style={styles.image} />
@@ -24,11 +19,12 @@ const Post = ({ post }: PostProps) => {
                 <Text style={styles.newPrice}> {post.newPrice} € </Text>
                 / nuit</Text>
             <Text style={styles.totalPrice}>Total {post.totalPrice} €</Text>
-        </Pressable>
+            <Text style={styles.lgDescription}>{post.longDescription}</Text>
+        </View>
     )
 }
 
-export default Post
+export default PostDetails
 
 const styles = StyleSheet.create({
     container: {
@@ -49,6 +45,11 @@ const styles = StyleSheet.create({
         fontSize: 18,
         lineHeight: 25
     },
+    lgDescription: {
+        marginVertical: 15,
+        fontSize: 16,
+        lineHeight: 25,
+    },
     prices: {
         marginVertical: 10,
         fontSize: 18,
@@ -65,4 +66,5 @@ const styles = StyleSheet.create({
         color: 'gray',
         textDecorationLine: 'underline',
     },
+
 })

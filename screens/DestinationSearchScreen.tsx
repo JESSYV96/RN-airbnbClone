@@ -1,33 +1,42 @@
 import React, { useState } from 'react'
-import { StyleSheet, Text, View, TextInput, FlatList, Pressable } from 'react-native'
-import { Ionicons } from '@expo/vector-icons'; 
-import searchResults from '../assets/data/search'
+import { StyleSheet, Text, ScrollView, View, FlatList, Pressable } from 'react-native'
+import { Ionicons } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
+import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
+import { GOOGLE_PLACES_API_KEY } from '../env';
+
+const DestinationItem = ({ item, navigation }: any) => {
+    return <View style={styles.destination}>
+        <View style={styles.backgroundIcon}>
+            <Ionicons name="ios-location-sharp" size={18} color="black" />
+        </View>
+        <Text style={styles.textResult}>{item.description}</Text>
+    </View>
+}
 
 const DestinationSearchScreen = ({ }) => {
     const [searchPlace, setSearchPlace] = useState('')
     const navigation = useNavigation();
 
     return (
-        <View style={styles.container}>
-            <TextInput
-                value={searchPlace}
-                onChangeText={text => setSearchPlace(text)}
-                placeholder="Rechercher un lieu"
-                placeholderTextColor="lightgray"
-                style={styles.searchInput} />
-
-            <FlatList
-                renderItem={itemData => (
-                    <Pressable onPress={() => navigation.navigate('Guests')}style={styles.containerResult}>
-                        <View style={styles.backgroundIcon}>
-                            <Ionicons name="ios-location-sharp" size={30} color="black" />
-                        </View>
-                        <Text style={styles.textResult}>{itemData.item.description}</Text>
-                    </Pressable>
-                )}
-                data={searchResults} />
-        </View>
+        <ScrollView
+            style={styles.container}
+            keyboardShouldPersistTaps='always'>
+            <GooglePlacesAutocomplete
+                placeholder='Rechercher un lieu'
+                onPress={(data, details = null) => {
+                    console.log(data, details);
+                    navigation.navigate('Guests')
+                }}
+                query={{
+                    key: GOOGLE_PLACES_API_KEY,
+                    language: 'fr',
+                    types: '(cities)'
+                }}
+                renderRow={item => <DestinationItem item={item} navigation={navigation} />}
+                enablePoweredByContainer={false}
+            />
+        </ScrollView>
     )
 }
 
@@ -39,19 +48,17 @@ const styles = StyleSheet.create({
         marginHorizontal: 30,
     },
     searchInput: {
-        fontSize: 20, 
+        fontSize: 20,
         marginBottom: 20
     },
-    containerResult: {
+    destination: {
         flexDirection: 'row',
         alignItems: 'center',
-        borderBottomColor: 'lightgray',
-        borderBottomWidth: 1,
-        paddingVertical: 20
+        paddingVertical: 10,
     },
     backgroundIcon: {
-        height: 50,
-        width: 50,
+        height: 30,
+        width: 30,
         borderRadius: 10,
         backgroundColor: 'lightgray',
         justifyContent: 'center',
@@ -59,7 +66,7 @@ const styles = StyleSheet.create({
     },
     textResult: {
         marginLeft: 15,
-        fontSize: 16,
+        fontSize: 12,
         fontWeight: 'bold'
     }
 })

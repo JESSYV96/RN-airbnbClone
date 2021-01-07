@@ -1,5 +1,5 @@
 import React from 'react'
-import { StyleSheet, Text, View, FlatList } from 'react-native'
+import { View, FlatList } from 'react-native'
 import feeds from '../assets/data/feeds'
 import Post from '../components/Post';
 
@@ -17,7 +17,3 @@ const SearchResultsScreen = () => {
 }
 
 export default SearchResultsScreen
-
-const styles = StyleSheet.create({
-
-})

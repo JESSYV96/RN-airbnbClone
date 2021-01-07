@@ -25,6 +25,7 @@ export type PostType = {
   image: string;
   type: string;
   title: string;
+  longDescription: string;
   bed: number;
   bedroom: number;
   oldPrice: number;

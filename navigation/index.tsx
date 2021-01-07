@@ -3,7 +3,6 @@ import { createStackNavigator } from '@react-navigation/stack';
 import * as React from 'react';
 import { ColorSchemeName } from 'react-native';
 import SearchResultsScreen from '../screens/SearchResultsScreen';
-import HomeScreen from '../screens/HomeScreen';
 
 import NotFoundScreen from '../screens/NotFoundScreen';
 import { RootStackParamList } from '../types';
@@ -11,6 +10,7 @@ import BottomTabNavigator from './BottomTabNavigator';
 import LinkingConfiguration from './LinkingConfiguration';
 import DestinationSearchScreen from '../screens/DestinationSearchScreen';
 import GuestsScreen from '../screens/GuestsScreen';
+import PlaceScreen from '../screens/PlaceScreen';
 
 // If you are not familiar with React Navigation, we recommend going through the
 // "Fundamentals" guide: https://reactnavigation.org/docs/getting-started
@@ -43,6 +43,10 @@ function RootNavigator() {
         name="Guests"
         component={GuestsScreen}
         options={{ headerTitle: 'Combien de personne' }} />
+      <Stack.Screen
+        name="PlaceDetails"
+        component={PlaceScreen}
+        options={{ headerTitle: 'Logement' }} />
       <Stack.Screen
         name="SearchResult"
         component={SearchResultsScreen} />
